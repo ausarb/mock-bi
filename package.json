@@ -1,0 +1,20 @@
+{
+	"name": "mock-bi",
+	"version": "0.0.0",
+	"description": "Demo at this point",
+	"private": true,
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Mattersight/mock-bi"
+	},
+	"main": "app.js",
+	"scripts": {
+	},
+	"author": "Mattersight",
+	"license": "SEE LICENSE IN LICENSE.txt",
+	"dependencies": {
+		"rabbit.js": "*"
+	},
+	"devDependencies": {
+	}
+}
