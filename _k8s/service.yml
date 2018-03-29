@@ -1,0 +1,16 @@
+# Sevice
+apiVersion: v1
+kind: Service
+metadata:
+  name: mock-bi
+  labels:
+    app: mock-bi
+spec:
+  ports:
+  - name: default
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: mock-bi
+  sessionAffinity: None

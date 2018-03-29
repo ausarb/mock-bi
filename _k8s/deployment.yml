@@ -1,0 +1,68 @@
+# Deployment
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mock-bi
+  labels:
+    app: mock-bi
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  generation: 1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mock-bi
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      name: mock-bi
+      labels:
+        app: mock-bi
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9143"
+        prometheus.io/interval: 5s
+    spec:
+      containers:
+      - name: mock-bi
+        image: matr/mock-bi:latest
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/bash", "-c"]
+        args:
+        - |
+          while true
+          do
+            sleep 30
+          done
+        ports:
+        - containerPort: 80
+          name: ae
+        - containerPort: 9143
+          name: monitor
+        volumeMounts:
+          - name: code
+            mountPath: /usr/src/apps/mock-bi
+          - name: docker
+            mountPath: /var/run/docker.sock
+        resources: {}
+        securityContext:
+          privileged: false
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      volumes:
+       - name: code
+         hostPath:
+           path: /development/github/kubernetes/mock-bi
+       - name: docker
+         hostPath:
+           path: /var/run/docker.sock
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 5
