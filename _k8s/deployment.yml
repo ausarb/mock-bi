@@ -30,23 +30,23 @@ spec:
     spec:
       containers:
       - name: mock-bi
-        image: matr/mock-bi:latest
+        image: matr/mock-bi:2.0.0
         imagePullPolicy: IfNotPresent
-        command: ["/bin/bash", "-c"]
-        args:
-        - |
-          while true
-          do
-            sleep 30
-          done
+#        command: ["/bin/bash", "-c"]
+#        args:
+#        - |
+#          while true
+#          do
+#            sleep 30
+#          done
         ports:
         - containerPort: 80
           name: ae
         - containerPort: 9143
           name: monitor
         volumeMounts:
-          - name: code
-            mountPath: /usr/src/apps/mock-bi
+#          - name: code
+#            mountPath: /usr/src/apps/mock-bi
           - name: docker
             mountPath: /var/run/docker.sock
         resources: {}
@@ -55,9 +55,9 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       volumes:
-       - name: code
-         hostPath:
-           path: /development/github/kubernetes/mock-bi
+#       - name: code
+#         hostPath:
+#           path: /development/github/kubernetes/mock-bi
        - name: docker
          hostPath:
            path: /var/run/docker.sock
