@@ -45,22 +45,22 @@ spec:
         - containerPort: 9143
           name: monitor
         volumeMounts:
-#          - name: code
-#            mountPath: /usr/src/apps/mock-bi
           - name: docker
             mountPath: /var/run/docker.sock
+#          - name: code
+#            mountPath: /usr/src/apps/mock-bi
         resources: {}
         securityContext:
           privileged: false
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       volumes:
-#       - name: code
-#         hostPath:
-#           path: /development/github/kubernetes/mock-bi
        - name: docker
          hostPath:
            path: /var/run/docker.sock
+#       - name: code
+#         hostPath:
+#           path: /development/github/kubernetes/mock-bi
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
