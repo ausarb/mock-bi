@@ -28,6 +28,7 @@ var context = rabbit.createContext(config.rabbit)
 				console.log("mock-bi got " + call.transcript);
 				setTimeout(function () {
 					sub.ack();
+					//should do something with the transcript like store it.
 				}, readSpeed);
 			}
 		});
