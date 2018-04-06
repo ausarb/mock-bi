@@ -1,6 +1,6 @@
 var rabbit = require('rabbit.js');
 var config = {
-	rabbit: "amqp://rabbit:5672",
+	rabbit: "amqp://rabbit:rabbit-amqp",
 	topics: {
 		in: "transcript",
 		out: null
