@@ -11,7 +11,7 @@ var context = rabbit.createContext(config.rabbit)
 	.on('ready', function() {
 		console.log('context ready');
 		var sub = this.socket('WORKER', {
-			prefetch: 1
+			prefetch: 300 // prefetch of 0 infinite.  RabbitMQ recommends a range of 100 - 300 to start with.
 		});
 
 		var readSpeed;
