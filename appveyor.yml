@@ -1,0 +1,35 @@
+version: 0.0.{build}
+image: Ubuntu
+environment:
+  DOCKER_USER:
+    secure: iWRp0Mn2nb+UizxjgU02/w==
+  DOCKER_PASS:
+    secure: FG7GX9pJhL0L9et6XYYH9A4Uu0w6FBjSdPXaTNXTBiM=
+  IMAGE_NAME: matr/mock-bi-ausarb-fork
+    
+for:
+-
+  branches:
+    only:
+      - master
+  
+  environment:
+    IMAGE_TAG: latest
+-
+  branches:
+    except:
+      - master
+    
+  environment:
+    IMAGE_TAG: "$APPVEYOR_REPO_BRANCH-latest"
+    
+build_script:
+- sh:  >-
+    echo IMAGE_TAG=$IMAGE_TAG
+    
+    docker build --network testing-net -t $IMAGE_NAME:$APPVEYOR_BUILD_VERSION -t $IMAGE_NAME:$IMAGE_TAG -f _docker/boron/Dockerfile .
+deploy_script:
+- sh: >-
+    docker login -u="$DOCKER_USER" --password-stdin <<<$DOCKER_PASS
+    
+    docker push matr/mock-ae-csharp
